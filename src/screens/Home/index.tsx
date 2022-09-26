@@ -6,12 +6,25 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 
 import { EmptyList } from "../../components/EmptyList";
+import { Task } from "../../components/Task";
 
 import { styles } from "./styles";
 
 export function Home() {
+  const tasks = [
+    {
+      name: "Concluir o primeiro desafio de react native",
+      finished: false
+    },
+    {
+      name: "Assistir o primeiro módulo de react native",
+      finished: false
+    }
+  ];
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -28,7 +41,7 @@ export function Home() {
           placeholderTextColor="#808080"
         />
         <TouchableOpacity style={styles.button}>
-          <Image source={require("../../../assets/button-icon.png")} />
+          <AntDesign name="pluscircleo" size={20} color="#F2F2F2" />
         </TouchableOpacity>
       </View>
 
@@ -47,9 +60,11 @@ export function Home() {
       </View>
 
       <FlatList
-        data={[]}
-        keyExtractor={(item) => item}
-        renderItem={(item) => <Text>teste</Text>}
+        data={tasks}
+        keyExtractor={(item) => item.name}
+        renderItem={({ item }) => (
+          <Task name={item.name} finished={item.finished} />
+        )}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={<EmptyList />}
       />

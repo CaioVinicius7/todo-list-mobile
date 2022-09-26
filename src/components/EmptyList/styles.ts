@@ -2,9 +2,12 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
-    marginTop: 50,
     marginLeft: 25,
     marginRight: 25,
+    paddingTop: 50,
+    borderTopWidth: 1.5,
+    borderTopColor: "#454545",
+
     alignItems: "center",
     justifyContent: "center"
   },

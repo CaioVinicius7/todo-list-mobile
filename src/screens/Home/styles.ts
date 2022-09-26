@@ -46,9 +46,7 @@ export const styles = StyleSheet.create({
   tasksSummary: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingBottom: 20,
-    borderBottomWidth: 1.5,
-    borderBottomColor: "#454545"
+    marginBottom: 20
   },
   tasksCounter: {
     flexDirection: "row"
