@@ -1,3 +1,4 @@
+import { useMemo, useState } from "react";
 import {
   Alert,
   FlatList,
@@ -11,10 +12,9 @@ import { AntDesign } from "@expo/vector-icons";
 
 import { EmptyList } from "../../components/EmptyList";
 import { Task } from "../../components/Task";
+import { TasksSummary } from "../../components/TasksSummary";
 
 import { styles } from "./styles";
-import { useState } from "react";
-import { TasksSummary } from "../../components/TasksSummary";
 
 interface Task {
   description: string;
@@ -24,6 +24,19 @@ interface Task {
 export function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTask, setNewTask] = useState("");
+
+  const tasksQuantity = useMemo(() => {
+    return tasks.length;
+  }, [tasks]);
+  const finishedTasksQuantity = useMemo(() => {
+    return tasks.reduce((acc, task) => {
+      if (task.finished === true) {
+        acc += 1;
+      }
+
+      return acc;
+    }, 0);
+  }, [tasks]);
 
   function handleAddNewTask() {
     if (newTask === "") {
@@ -107,7 +120,10 @@ export function Home() {
       </View>
 
       <View style={styles.tasksContainer}>
-        <TasksSummary />
+        <TasksSummary
+          tasksQuantity={tasksQuantity}
+          finishedTasksQuantity={finishedTasksQuantity}
+        />
 
         <FlatList
           data={tasks}
