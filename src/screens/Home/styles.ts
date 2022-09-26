@@ -7,12 +7,12 @@ export const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: "#0D0D0D",
-    height: 175,
+    height: 190,
     justifyContent: "center",
     alignItems: "center"
   },
   logo: {
-    marginTop: -15
+    marginTop: -5
   },
   form: {
     flexDirection: "row",
