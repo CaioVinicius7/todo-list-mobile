@@ -14,6 +14,7 @@ import { Task } from "../../components/Task";
 
 import { styles } from "./styles";
 import { useState } from "react";
+import { TasksSummary } from "../../components/TasksSummary";
 
 interface Task {
   description: string;
@@ -106,33 +107,23 @@ export function Home() {
       </View>
 
       <View style={styles.tasksContainer}>
-        <View style={styles.tasksSummary}>
-          <View style={styles.tasksCounter}>
-            <Text style={styles.createdTasks}>Criadas</Text>
-            <Text style={styles.quantity}> 0 </Text>
-          </View>
+        <TasksSummary />
 
-          <View style={styles.tasksCounter}>
-            <Text style={styles.finishedTasks}>Concluídas</Text>
-            <Text style={styles.quantity}> 0 </Text>
-          </View>
-        </View>
+        <FlatList
+          data={tasks}
+          keyExtractor={(item) => item.description}
+          renderItem={({ item }) => (
+            <Task
+              description={item.description}
+              finished={item.finished}
+              onFinish={handleFinishTask}
+              onRemove={handleRemoveTask}
+            />
+          )}
+          showsVerticalScrollIndicator={false}
+          ListEmptyComponent={<EmptyList />}
+        />
       </View>
-
-      <FlatList
-        data={tasks}
-        keyExtractor={(item) => item.description}
-        renderItem={({ item }) => (
-          <Task
-            description={item.description}
-            finished={item.finished}
-            onFinish={handleFinishTask}
-            onRemove={handleRemoveTask}
-          />
-        )}
-        showsVerticalScrollIndicator={false}
-        ListEmptyComponent={<EmptyList />}
-      />
     </View>
   );
 }
