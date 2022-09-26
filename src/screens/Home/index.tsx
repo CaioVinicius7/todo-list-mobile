@@ -66,6 +66,23 @@ export function Home() {
     setTasks(updatedTasks);
   }
 
+  function handleRemoveTask(description: string) {
+    Alert.alert("Remover", `Deseja remover essa tarefa?`, [
+      {
+        text: "Sim",
+        onPress: () => {
+          setTasks((prevState) =>
+            prevState.filter((task) => task.description !== description)
+          );
+        }
+      },
+      {
+        text: "Não",
+        style: "cancel"
+      }
+    ]);
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -110,6 +127,7 @@ export function Home() {
             description={item.description}
             finished={item.finished}
             onFinish={handleFinishTask}
+            onRemove={handleRemoveTask}
           />
         )}
         showsVerticalScrollIndicator={false}
