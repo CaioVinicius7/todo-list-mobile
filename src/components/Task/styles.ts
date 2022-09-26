@@ -20,8 +20,8 @@ export const styles = StyleSheet.create({
   },
   taskContainer: {
     width: "80%",
-    alignItems: "center",
-    justifyContent: "flex-start"
+    alignItems: "flex-start",
+    justifyContent: "center"
   },
   deleteTaskContainer: {
     width: "15%",

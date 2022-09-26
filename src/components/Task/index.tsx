@@ -5,11 +5,12 @@ import { Feather } from "@expo/vector-icons";
 import { styles } from "./styles";
 
 interface TaskProps {
-  name: string;
+  description: string;
   finished: boolean;
+  onFinish: (description: string) => void;
 }
 
-export function Task({ name, finished }: TaskProps) {
+export function Task({ description, finished, onFinish }: TaskProps) {
   return (
     <View style={styles.container}>
       <View style={styles.taskContainer}>
@@ -20,11 +21,14 @@ export function Task({ name, finished }: TaskProps) {
           innerIconStyle={{
             borderColor: `${finished ? "#5E60CE" : "#4EA8DE"}`
           }}
-          text={name}
+          text={description}
           textStyle={{
             color: `${finished ? "#808080" : "#F2F2F2"}`
           }}
           isChecked={finished}
+          onPress={() => {
+            onFinish(description);
+          }}
         />
       </View>
       <TouchableOpacity style={styles.deleteTaskContainer}>

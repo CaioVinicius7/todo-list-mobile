@@ -1,4 +1,5 @@
 import {
+  Alert,
   FlatList,
   Image,
   Text,
@@ -12,18 +13,58 @@ import { EmptyList } from "../../components/EmptyList";
 import { Task } from "../../components/Task";
 
 import { styles } from "./styles";
+import { useState } from "react";
+
+interface Task {
+  description: string;
+  finished: boolean;
+}
 
 export function Home() {
-  const tasks = [
-    {
-      name: "Concluir o primeiro desafio de react native",
-      finished: false
-    },
-    {
-      name: "Assistir o primeiro módulo de react native",
-      finished: false
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [newTask, setNewTask] = useState("");
+
+  function handleAddNewTask() {
+    if (newTask === "") {
+      return Alert.alert(
+        "Tarefa inválida!",
+        "Preencha a tarefa que deseja adicionar...."
+      );
     }
-  ];
+
+    const tasksDescription = tasks.map((task) => task.description);
+
+    if (tasksDescription.includes(newTask)) {
+      return Alert.alert(
+        "Tarefa já cadastrada!",
+        "Ops, parece que essa tarefa já foi cadastrada anteriormente..."
+      );
+    }
+
+    setTasks((prevState) => {
+      return [
+        ...prevState,
+        {
+          description: newTask,
+          finished: false
+        }
+      ];
+    });
+
+    setNewTask("");
+  }
+
+  function handleFinishTask(description: string) {
+    const updatedTasks = tasks.map((task) => {
+      if (task.description === description) {
+        task.finished = !task.finished;
+      }
+
+      return task;
+    });
+
+    setTasks(updatedTasks);
+  }
 
   return (
     <View style={styles.container}>
@@ -39,8 +80,10 @@ export function Home() {
           style={styles.newTaskInput}
           placeholder="Adicione uma nova tarefa"
           placeholderTextColor="#808080"
+          value={newTask}
+          onChangeText={setNewTask}
         />
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handleAddNewTask}>
           <AntDesign name="pluscircleo" size={20} color="#F2F2F2" />
         </TouchableOpacity>
       </View>
@@ -61,9 +104,13 @@ export function Home() {
 
       <FlatList
         data={tasks}
-        keyExtractor={(item) => item.name}
+        keyExtractor={(item) => item.description}
         renderItem={({ item }) => (
-          <Task name={item.name} finished={item.finished} />
+          <Task
+            description={item.description}
+            finished={item.finished}
+            onFinish={handleFinishTask}
+          />
         )}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={<EmptyList />}
