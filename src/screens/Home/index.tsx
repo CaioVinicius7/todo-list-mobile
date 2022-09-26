@@ -1,4 +1,14 @@
-import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  FlatList,
+  Image,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
+} from "react-native";
+
+import { EmptyList } from "../../components/EmptyList";
+
 import { styles } from "./styles";
 
 export function Home() {
@@ -21,6 +31,28 @@ export function Home() {
           <Image source={require("../../../assets/button-icon.png")} />
         </TouchableOpacity>
       </View>
+
+      <View style={styles.tasksContainer}>
+        <View style={styles.tasksSummary}>
+          <View style={styles.tasksCounter}>
+            <Text style={styles.createdTasks}>Criadas</Text>
+            <Text style={styles.quantity}> 0 </Text>
+          </View>
+
+          <View style={styles.tasksCounter}>
+            <Text style={styles.finishedTasks}>Concluídas</Text>
+            <Text style={styles.quantity}> 0 </Text>
+          </View>
+        </View>
+      </View>
+
+      <FlatList
+        data={[]}
+        keyExtractor={(item) => item}
+        renderItem={(item) => <Text>teste</Text>}
+        showsVerticalScrollIndicator={false}
+        ListEmptyComponent={<EmptyList />}
+      />
     </View>
   );
 }
