@@ -22,7 +22,7 @@ Esse é o quarto desafio da trilha de react native do ignite de 2022 da [Rockets
 
 - Número de páginas: 1
 
-[Template no Figma](<https://www.figma.com/file/QczcrY042IoNxGsQYMUU5S/ToDo-List-(Copy)?node-id=0%3A1>)
+[Template no Figma](https://www.figma.com/file/QczcrY042IoNxGsQYMUU5S/ToDo-List?t=GKBx6DOzfcjyOLP2-0)
 
 <br>
 
